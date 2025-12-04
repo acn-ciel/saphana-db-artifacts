@@ -5,7 +5,7 @@ entity Books  {
    borrowerName:        String(50)      @description: `Borrower's ID`;
    bookTitle:           String(100)     @description: 'Book Title';
    authorName:          String(100)     @description: 'Author Name';
-   readDate:            Date            @description: 'Date';
+   readDate:            Date            @default: CURRENT_DATE @description: 'Date';
 }
 
 entity PRODUCTS {
