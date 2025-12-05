@@ -56,7 +56,6 @@ module.exports = async srv => {
                 return "No products found in Northwind service.";
             }
 
-            // Step 2: Insert into HANA
             const tx = cds.transaction(req);
 
             for (const p of products) {
@@ -76,7 +75,6 @@ module.exports = async srv => {
                 );
             }
 
-            // Step 3: Return success message
             return `${products.length} supplier records successfully uploaded to the database.`;
 
             } catch (error) {
