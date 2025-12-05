@@ -1,22 +1,31 @@
-@baseUrl = @baseUrl = http://localhost:4004/odata/v4
+@baseUrl = http://localhost:4004/odata/v4
 
-# GET {{baseUrl}}/catalog/northwind HTTP/1.1
+# POST {{baseUrl}}/catalog/insertTBProducts HTTP/1.1
+# Content-Type: application/json
+
+# POST {{baseUrl}}/catalog/insertTBSuppliers HTTP/1.1
+# Content-Type: application/json
+
+# POST {{baseUrl}}/catalog/insertTBCategories HTTP/1.1
+# Content-Type: application/json
+
+GET {{baseUrl}}/catalog/fetchData HTTP/1.1
+
 
 # POST http://localhost:4004/odata/v4/catalog/logBooks HTTP/1.1
 # Content-Type: application/json
 
 #   {
 #     "borrowerName": "Sasha",
-#     "bookTitle": "The Brave New World",
+#     "bookTitle": "The New World",
 #     "authorName": "Aldous Huxley",
 #     "readDate": "{{$datetime 'YYYY-MM-DD'}}"
 #   }
 
-POST http://localhost:4004/odata/v4/catalog/fetchBooks HTTP/1.1
-Content-Type: application/json
+# POST http://localhost:4004/odata/v4/catalog/fetchBooks HTTP/1.1
+# Content-Type: application/json
 
-{
-    "borrowerName": "Alice"
-}
- 
+# {
+#     "borrowerName": "Alice"
+# }
 

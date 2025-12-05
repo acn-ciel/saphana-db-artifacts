@@ -32,7 +32,7 @@ entity SUPPLIERS {
     PostalCode:         String(100)     @description: 'Postal Code';
     Country:            String(100)     @description: 'Country';
     Phone:              String(100)     @description: 'Phone';
-    Fax:                Integer         @description: 'Fax';
+    Fax:                String(100)     @description: 'Fax';
     HomePage:           String(200)     @description: 'Home Page';
 }
 
