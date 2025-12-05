@@ -16,7 +16,7 @@ service CatalogService {
     function fetchData() returns array of {
         ProductID    : UUID;
         ProductName  : String;
-        SupplierID   : String
+        SupplierID   : String;
         CompanyName  : String;
         Address      : String;
         City         : String;
