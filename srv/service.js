@@ -191,6 +191,17 @@ module.exports = async srv => {
             'C.Description'
         )
     );
-    return records;
+    
+    return records.map(r => ({
+        ProductID: r.ProductID,
+        ProductName: r.ProductName,
+        SupplierID: r.SupplierID,
+        CompanyName: r.CompanyName,
+        Address: r.Address,
+        City: r.City,
+        Region: r.Region,
+        CategoryName: r.CategoryName,
+        Description: r.Description
+        }));
     });
 };
