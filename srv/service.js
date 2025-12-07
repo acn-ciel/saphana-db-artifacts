@@ -61,16 +61,17 @@ module.exports = async srv => {
             for (const p of products) {
                 await tx.run(
                 INSERT.into('CDSPROJECT_PRODUCTS').entries({
-                    ProductID:          String(p.ProductID),
-                    ProductName:        String(p.ProductName),
-                    SupplierID:         String(p.SupplierID),
-                    CategoryID:         String(p.CategoryID),
-                    QuantityPerUnit:    String(p.QuantityPerUnit),
-                    UnitPrice:          String(p.UnitPrice),
-                    UnitsInStock:       Number(p.UnitsInStock),
-                    UnitsOnOrder:       Number(p.UnitsOnOrder),
-                    ReorderLevel:       Number(p.ReorderLevel),
-                    Discontinued:       String(p.Discontinued)
+                    ProductID:        p.ProductID       != null ? String(p.ProductID)   : null,
+                    ProductName:      p.ProductName     != null ? String(p.ProductName) : null,
+                    SupplierID:       p.SupplierID      != null ? String(p.SupplierID)  : null,
+                    CategoryID:       p.CategoryID      != null ? String(p.CategoryID)  : null,
+                    QuantityPerUnit:  p.QuantityPerUnit != null ? String(p.QuantityPerUnit) : null,
+                    UnitPrice:        p.UnitPrice       != null ? String(p.UnitPrice)   : null,
+                    UnitsInStock:     p.UnitsInStock    != null ? Number(p.UnitsInStock) : null,
+                    UnitsOnOrder:     p.UnitsOnOrder    != null ? Number(p.UnitsOnOrder) : null,
+                    ReorderLevel:     p.ReorderLevel    != null ? Number(p.ReorderLevel) : null,
+                    Discontinued:     p.Discontinued    != null ? String(p.Discontinued) : null
+
                 })
                 );
             }
@@ -109,18 +110,18 @@ module.exports = async srv => {
             for (const s of suppliers) {
                 await tx.run(
                     INSERT.into('CDSPROJECT_SUPPLIERS').entries({
-                        SupplierID:     String(s.SupplierID),
-                        CompanyName:    String(s.CompanyName),
-                        ContactName:    String(s.ContactName),
-                        ContactTitle:   String(s.ContactTitle),
-                        Address:        String(s.Address),
-                        City:           String(s.City),
-                        Region:         String(s.Region),
-                        PostalCode:     String(s.PostalCode),
-                        Country:        String(s.Country),
-                        Phone:          String(s.Phone),
-                        Fax:            String(s.Fax),
-                        HomePage:       String(s.HomePage)
+                        SupplierID:   s.SupplierID   != null ? String(s.SupplierID)   : null,
+                        CompanyName:  s.CompanyName  != null ? String(s.CompanyName)  : null,
+                        ContactName:  s.ContactName  != null ? String(s.ContactName)  : null,
+                        ContactTitle: s.ContactTitle != null ? String(s.ContactTitle) : null,
+                        Address:      s.Address      != null ? String(s.Address)      : null,
+                        City:         s.City         != null ? String(s.City)         : null,
+                        Region:       s.Region       != null ? String(s.Region)       : null,
+                        PostalCode:   s.PostalCode   != null ? String(s.PostalCode)   : null,
+                        Country:      s.Country      != null ? String(s.Country)      : null,
+                        Phone:        s.Phone        != null ? String(s.Phone)        : null,
+                        Fax:          s.Fax          != null ? String(s.Fax)          : null,
+                        HomePage:     s.HomePage     != null ? String(s.HomePage)     : null
                     })
                 )
             }
@@ -158,9 +159,9 @@ module.exports = async srv => {
             for (const c of categories) {
                 await tx.run(
                 INSERT.into('CDSPROJECT_CATEGORIES').entries({
-                    CategoryID:          String(c.CategoryID),
-                    CategoryName:        String(c.CategoryName),
-                    Description:         String(c.Description),
+                    CategoryID:     c.CategoryID   != null ? String(c.CategoryID)   : null,
+                    CategoryName:   c.CategoryName != null ? String(c.CategoryName) : null,
+                    Description:    c.Description  != null ? String(c.Description)  : null
                 })
                 );
             }
@@ -191,7 +192,7 @@ module.exports = async srv => {
             'C.Description'
         )
     );
-    
+
     return records.map(r => ({
         ProductID: r.ProductID,
         ProductName: r.ProductName,
