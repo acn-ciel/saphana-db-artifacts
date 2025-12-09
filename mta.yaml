@@ -1,81 +1,130 @@
 _schema-version: 3.3.0
 ID: CDSProject
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
+modules:
+- name: CDSProject-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: CDSProject-auth
+  - name: CDSProject-db
+  - name: CDSProject-destination
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: CDSProject-db-deployer
+  type: hdb
+  path: db
+  requires:
+  - name: CDSProject-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: CDSProject-app-deployer
+  type: com.sap.application.content
+  path: gen
+  requires:
+  - name: CDSProject-auth
+  - name: srv-api
+  - name: CDSProject-html5-repo-host
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+      content-target: true
+  build-parameters:
+    build-result: app/
+    requires:
+    - artifacts:
+      - febootcamp.zip
+      name: febootcamp
+      target-path: app/
+- name: CDSProject-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: CDSProject-destination
+    parameters:
+      content-target: true
+  - name: CDSProject-html5-repo-host
+    parameters:
+      service-key:
+        name: CDSProject-html5-repo-host-key
+  - name: CDSProject-auth
+    parameters:
+      service-key:
+        name: CDSProject-auth-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: FEBootcamp_CDSProject_html5_repo_host
+          ServiceKeyName: CDSProject-html5-repo-host-key
+          sap.cloud.service: FEBootcamp
+        - Authentication: OAuth2UserTokenExchange
+          Name: FEBootcamp_CDSProject_auth
+          ServiceInstanceName: CDSProject-auth
+          ServiceKeyName: CDSProject-auth-key
+          sap.cloud.service: FEBootcamp
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: febootcamp
+  type: html5
+  path: app/febootcamp
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: CDSProject-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: dedicated
+      xsappname: CDSProject-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: CDSProject-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: CDSProject-destination
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+    service: destination
+    service-plan: lite
+- name: CDSProject-html5-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
 parameters:
-  enable-parallel-deployments: true
   deploy_mode: html5-repo
+  enable-parallel-deployments: true
 build-parameters:
   before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx cds build --production
-modules:
-  - name: CDSProject-srv
-    type: nodejs
-    path: gen/srv
-    parameters:
-      instances: 1
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
-    provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: CDSProject-auth
-      - name: CDSProject-db
-      - name: CDSProject-destination
-
-  - name: CDSProject-db-deployer
-    type: hdb
-    path: db
-    parameters:
-      buildpack: nodejs_buildpack
-    requires:
-      - name: CDSProject-db
-
-  - name: CDSProject-app-deployer
-    type: com.sap.application.content
-    path: gen
-    requires:
-      - name: CDSProject-auth
-      - name: srv-api
-      - name: CDSProject-html5-repo-host
-        parameters:
-          content-target: true
-          config:
-            HTML5Runtime_enabled: true
-    build-parameters:
-      build-result: app/
-      requires:
-
-
-resources:
-  - name: CDSProject-auth
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: xsuaa
-      service-plan: application
-      path: ./xs-security.json
-      config:
-        xsappname: CDSProject-${org}-${space}
-        tenant-mode: dedicated
-  - name: CDSProject-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
-  - name: CDSProject-destination
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: destination
-      service-plan: lite
-
-  - name: CDSProject-html5-repo-host
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: html5-apps-repo
-      service-plan: app-host
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production
