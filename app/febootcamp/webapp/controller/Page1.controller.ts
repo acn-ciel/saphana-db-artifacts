@@ -36,7 +36,7 @@ export default class Page1 extends Controller {
     );
       }
 
-  public async fetchProducts(): Promise<void> {
+  public async fetchProducts(): Promise<any> {
     const oModel = this.getOwnerComponent()!.getModel() as ODataModel;
 
     if (!oModel) {
@@ -51,7 +51,17 @@ export default class Page1 extends Controller {
       const aContexts: Context[] = await oBinding.requestContexts(0, 100);
 
       const aData = aContexts.map(ctx => ctx.getObject());
-      console.log("Products:", aData);
+      const productDetail = aData.map(product => ({
+        name: product.ProductName,
+        units: product.UnitsInStock
+      }));
+
+      const oView = this.getView();
+      if (oView) {
+          oView.setModel(new JSONModel({ Products: productDetail }));
+      }
+
+      console.log(productDetail)
 
     } catch (err) {
       console.error("Error fetching products:", err);
