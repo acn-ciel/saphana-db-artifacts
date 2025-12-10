@@ -1,0 +1,35 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:controls="sap.viz.ui5.controls"
+    xmlns:viz="sap.viz.ui5.controls.common.feeds"
+    xmlns:vizData="sap.viz.ui5.data"
+
+    controllerName="febootcamp.controller.Page1">
+
+    <Page id="page1" title="{i18n>page1}">
+        <Title text="Hello, Rochelle Ann" level="H1" class="page1Title" />
+        <Button id="page1Button" text="Click to say Hello!" press="onButtonPress" icon="sap-icon://message-popup"/>
+        
+        <Panel expandable="true" expanded="true" headerText="VizFrame Chart">
+            <content>
+                <controls:VizFrame id="idVizFrame" vizType="column" width="100%" height="400px">
+                    <controls:dataset>
+                        <vizData:FlattenedDataset data="{/mockData}">
+                            <vizData:dimensions>
+                                <vizData:DimensionDefinition name="Category" value="{Category}"/>
+                            </vizData:dimensions>
+                            <vizData:measures>
+                                <vizData:MeasureDefinition name="Value" value="{Value}"/>
+                            </vizData:measures>
+                        </vizData:FlattenedDataset>
+                    </controls:dataset>
+                    <controls:feeds>
+                        <viz:FeedItem uid="categoryAxis" type="Dimension" values="Category"/>
+                        <viz:FeedItem uid="valueAxis" type="Measure" values="Value"/>
+                    </controls:feeds>
+                </controls:VizFrame>
+            </content>
+        </Panel>
+    </Page>
+</mvc:View>

@@ -1,0 +1,7 @@
+<mvc:View controllerName="febootcamp.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page2" title="{i18n>title}">
+        <Title text="Hello Page 2"></Title>
+    </Page>
+</mvc:View>

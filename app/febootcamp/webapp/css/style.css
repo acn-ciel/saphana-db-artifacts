@@ -1,1 +1,4 @@
-/* Enter your custom styles here */
+.page1Title {
+    font-size: 4rem;   /* or px, em, etc. */
+    font-weight: bold;
+}

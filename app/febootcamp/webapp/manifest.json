@@ -94,16 +94,39 @@
       "routes": [
         {
           "name": "RouteHome",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetHome"
           ]
+        },
+        {
+          "name": "RoutePage1",
+          "pattern": "Page1",
+          "target": [
+            "TargetPage1"
+          ]
+        },
+        {
+          "name": "RoutePage2",
+          "pattern": "Page2",
+          "target": [
+            "TargetPage2"
+          ]
         }
+
       ],
       "targets": {
         "TargetHome": {
           "id": "Home",
           "name": "Home"
+        },
+        "TargetPage1": {
+          "id": "Page1",
+          "name": "Page1"
+        },
+        "TargetPage2": {
+          "id": "Page2",
+          "name": "Page2"
         }
       }
     },
