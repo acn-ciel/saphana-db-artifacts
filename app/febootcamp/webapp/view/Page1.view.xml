@@ -8,21 +8,29 @@
     controllerName="febootcamp.controller.Page1">
 
     <Page id="page1" title="{i18n>page1}">
-        <Title text="Hello, Rochelle Ann" level="H1" class="page1Title" />
-        <Button id="page1Button" text="Click to say Hello!" press="onButtonPress" icon="sap-icon://message-popup"/>
+        <Title text="Hello, Rochelle Ann" level="H1" class="pageOneTitle" />
+        <Button id="pageOneButton" text="Click to say Hello!" press="onButtonPress" icon="sap-icon://message-popup"/>
         
-        <Panel expandable="true" expanded="true" headerText="Products Chart">
+        <Panel expandable="true" expanded="true" headerText="VizFrame Chart">
             <content>
-                <controls:VizFrame id="idVizFrame" vizType="column" width="100%" height="400px">
+                <controls:VizFrame id="idVizFrame" vizType="column" width="100%" height="400px"
+                                uiConfig="{ applicationSet: 'fiori' }"
+                                vizProperties="{
+                                    'title': {
+                                    'text': 'Products Unit in Stock',
+                                    'visible': true
+                                    }
+                                }">
+
                     <controls:dataset>
-                        <!-- Bind to Products array from JSONModel -->
+                        
                         <vizData:FlattenedDataset data="{/Products}">
                             <vizData:dimensions>
-                                <!-- Use product name as the dimension -->
+                                
                                 <vizData:DimensionDefinition name="Product" value="{name}"/>
                             </vizData:dimensions>
                             <vizData:measures>
-                                <!-- Use units in stock as the measure -->
+                                
                                 <vizData:MeasureDefinition name="Units In Stock" value="{units}"/>
                             </vizData:measures>
                         </vizData:FlattenedDataset>
@@ -34,6 +42,7 @@
                 </controls:VizFrame>
             </content>
         </Panel>
-
+        <Button id="toPageTwo" text="Click here to go to Page 2!" press="toPageTwo">
+        </Button>
     </Page>
 </mvc:View>

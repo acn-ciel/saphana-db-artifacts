@@ -3,6 +3,7 @@ import MessageBox from "sap/m/MessageBox";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import ODataModel from "sap/ui/model/odata/v4/ODataModel"
 import Context from "sap/ui/model/odata/v4/Context";
+import UIComponent from "sap/ui/core/UIComponent";
 
 /**
  * @namespace febootcamp.controller
@@ -10,31 +11,31 @@ import Context from "sap/ui/model/odata/v4/Context";
 
 export default class Page1 extends Controller {
 
-    public onInit(): void {
-        // Mock data for VizFrame
-        const oData = {
-            mockData: [
-                { Category: "A", Value: 10 },
-                { Category: "B", Value: 20 },
-                { Category: "C", Value: 30 }
-            ]
-        };
+  public onInit(): void {
+      // Mock data for VizFrame
+      const oData = {
+          mockData: [
+              { Category: "A", Value: 10 },
+              { Category: "B", Value: 20 },
+              { Category: "C", Value: 30 }
+          ]
+      };
 
-        // Create JSON model and set it to the view
-        const oModel = new JSONModel(oData);
-        this.getView()!.setModel(oModel);
+      // Create JSON model and set it to the view
+      const oModel = new JSONModel(oData);
+      this.getView()!.setModel(oModel);
 
-        this.fetchProducts();
+      this.fetchProducts();
+  }
+
+  /*eslint-disable @typescript-eslint/no-empty-function*/
+  public onButtonPress(): void {
+      MessageBox.show(
+      "Nice to meet you!", {
+      title: "Hello World",
+  }
+  );
     }
-
-    /*eslint-disable @typescript-eslint/no-empty-function*/
-    public onButtonPress(): void {
-        MessageBox.confirm(
-		"Nice to meet you!", {
-			title: "Hello World",
-		}
-    );
-      }
 
   public async fetchProducts(): Promise<any> {
     const oModel = this.getOwnerComponent()!.getModel() as ODataModel;
@@ -66,6 +67,11 @@ export default class Page1 extends Controller {
     } catch (err) {
       console.error("Error fetching products:", err);
     }
+  }
+
+  public toPageTwo(): void {
+    const oRouter = (this.getOwnerComponent() as UIComponent).getRouter();
+    oRouter.navTo("RoutePage2");
   }
 
 }

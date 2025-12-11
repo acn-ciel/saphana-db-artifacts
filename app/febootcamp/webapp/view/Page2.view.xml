@@ -1,7 +1,7 @@
-<mvc:View controllerName="febootcamp.controller.Home"
+<mvc:View controllerName="febootcamp.controller.Page2"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Page id="page2" title="{i18n>title}">
-        <Title text="Hello Page 2"></Title>
+    <Page id="page2" title="{i18n>title}" showNavButton="true" navButtonPress="prevPage" class="sapUiResponsiveContentPadding">
+        <Title text="Welcome to Page 2" class="pageTwoTitle"></Title>
     </Page>
 </mvc:View>

@@ -1,4 +1,4 @@
-.page1Title {
+.pageOneTitle, .pageTwoTitle {
     font-size: 4rem;   /* or px, em, etc. */
     font-weight: bold;
 }
