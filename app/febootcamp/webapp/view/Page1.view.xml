@@ -23,21 +23,18 @@
                                 }">
 
                     <controls:dataset>
-                        
                         <vizData:FlattenedDataset data="{/Products}">
                             <vizData:dimensions>
-                                
                                 <vizData:DimensionDefinition name="Product" value="{name}"/>
                             </vizData:dimensions>
                             <vizData:measures>
-                                
                                 <vizData:MeasureDefinition name="Units In Stock" value="{units}"/>
                             </vizData:measures>
                         </vizData:FlattenedDataset>
                     </controls:dataset>
                     <controls:feeds>
-                        <viz:FeedItem uid="categoryAxis" type="Dimension" values="Product"/>
-                        <viz:FeedItem uid="valueAxis" type="Measure" values="Units In Stock"/>
+                        <viz:FeedItem uid="productAxis" type="Dimension" values="Product"/>
+                        <viz:FeedItem uid="unitsAxis" type="Measure" values="Units In Stock"/>
                     </controls:feeds>
                 </controls:VizFrame>
             </content>
