@@ -33,11 +33,16 @@
                         </vizData:FlattenedDataset>
                     </controls:dataset>
                     <controls:feeds>
-                        <viz:FeedItem uid="productAxis" type="Dimension" values="Product"/>
-                        <viz:FeedItem uid="unitsAxis" type="Measure" values="Units In Stock"/>
+                        <viz:FeedItem uid="categoryAxis" type="Dimension" values="Product"/>
+                        <viz:FeedItem uid="valueAxis" type="Measure" values="Units In Stock"/>
                     </controls:feeds>
                 </controls:VizFrame>
             </content>
+        </Panel>
+        <Panel expandable="true" expanded="true" headerText="List">
+            <List id="productDetail" items="{path: '/Products'}">
+                <StandardListItem id="discontinued" title="{name}" description="Discontinued: {discontinued}" />
+            </List>
         </Panel>
         <Button id="toPageTwo" text="Click here to go to Page 2!" press="toPageTwo">
         </Button>

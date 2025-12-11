@@ -54,7 +54,8 @@ export default class Page1 extends Controller {
       const aData = aContexts.map(ctx => ctx.getObject());
       const productDetail = aData.map(product => ({
         name: product.ProductName,
-        units: product.UnitsInStock
+        units: product.UnitsInStock,
+        discontinued: product.Discontinued
       }));
 
       const oView = this.getView();
